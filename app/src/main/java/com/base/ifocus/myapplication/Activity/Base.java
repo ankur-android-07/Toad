@@ -67,7 +67,6 @@ public class Base extends ActionBarActivity
                 break;
         }
     }
-
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
