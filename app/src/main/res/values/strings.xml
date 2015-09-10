@@ -3,12 +3,25 @@
 
     <string name="app_name">ToadWays</string>
     <string name="title_activity_base">Base</string>
-    <string name="title_section1">Post</string>
-    <string name="title_section2">Poll</string>
-    <string name="title_section3">Feeds</string>
+    <string name="title_section0">Home</string>
+    <string name="title_section1">Menus</string>
+    <string name="title_section2">Events</string>
+    <string name="title_section3">About Us</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_register">RegisterAct</string>
+    <string name="generic_server_down">Server Down</string>
+    <string name="no_internet">Internet not accessible</string>
+    <string name="generic_error">Well this is Embarrassing.....</string>
 
+    <string name="or">OR</string>
+    <string name="login">Login</string>
+    <string name="welcome">Welcome Guest,</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="base_url">http://192.168.1.100/hotel</string>
+    <string name="allCategory">/CategoryDB.php</string>
+    <string name="allcat">allCat</string>
 </resources>

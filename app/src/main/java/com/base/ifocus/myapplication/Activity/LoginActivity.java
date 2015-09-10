@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,7 +36,7 @@ import java.util.List;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, OnClickListener {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -52,8 +54,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
-    private View mLoginFormView;
+    private View mLoginFormView,buttonLayout;
     private Activity actLogin;
+    private FloatingActionButton fabRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         actLogin = this;
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        fabRegister = (FloatingActionButton) findViewById(R.id.fab);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -77,14 +81,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+        mEmailSignInButton.setOnClickListener(this);
+        fabRegister.setOnClickListener(this);
 
         mLoginFormView = findViewById(R.id.email_login_form);
+        buttonLayout = findViewById(R.id.buttonLayout);
         mProgressView = findViewById(R.id.login_progress);
     }
 
@@ -168,11 +169,21 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            buttonLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            buttonLayout.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    buttonLayout.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
@@ -189,6 +200,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            buttonLayout.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -224,6 +236,23 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.email_sign_in_button:
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                        LoginActivity.this, fabRegister, "profile");
+                Intent intent = new Intent(LoginActivity.this, RegisterAct.class);
+                startActivity(intent, options.toBundle());
+                break;
+            case R.id.fab:
+                attemptLogin();
+                break;
+            default:
+                break;
+        }
     }
 
     private interface ProfileQuery {
