@@ -1,10 +1,10 @@
 package com.base.ifocus.myapplication.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.ifocus.myapplication.R;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
     private ArrayList<String> mDataset;
+    private String[] dataSet;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -31,8 +32,13 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CategoryListAdapter(ArrayList<String> myDataset) {
-        mDataset = myDataset;
+    public CategoryListAdapter(ArrayList<String> myDataset, Context context) {
+        if (myDataset != null) {
+            mDataset = myDataset;
+        } else {
+            dataSet = context.getResources().getStringArray(R.array.menuNames);
+        }
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -41,7 +47,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
                                                              int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_row, parent, false);
+                .inflate(R.layout.menu_card_row, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -53,7 +59,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         // - replace the contents of the view with that element
         try {
             TextView v = (TextView) holder.mView.findViewById(R.id.info_text);
-            v.setText(mDataset.get(position));
+            if (mDataset != null) {
+                v.setText(mDataset.get(position));
+            } else {
+                v.setText(dataSet[position]);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

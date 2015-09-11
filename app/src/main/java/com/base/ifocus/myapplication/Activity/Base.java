@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.base.ifocus.myapplication.Adapter.BaseFragAdapter;
 
 import com.base.ifocus.myapplication.Adapter.TodaysSpecialAdapter;
+import com.base.ifocus.myapplication.Fragment.AboutUs;
 import com.base.ifocus.myapplication.Fragment.EventFragment;
 import com.base.ifocus.myapplication.Fragment.MenuFragment;
 import com.base.ifocus.myapplication.Fragment.NavigationDrawerFragment;
@@ -74,7 +75,7 @@ public class Base extends ActionBarActivity
                 fragment = new EventFragment();
                 break;
             case 3:
-                fragment = new MenuFragment();
+                fragment = new AboutUs();
                 break;
         }
         onSectionAttached(position);

@@ -1,5 +1,6 @@
 package com.base.ifocus.myapplication.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,9 @@ import android.view.ViewGroup;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.base.ifocus.myapplication.Adapter.BaseFragAdapter;
+import com.base.ifocus.myapplication.Activity.Details;
 import com.base.ifocus.myapplication.Adapter.CategoryListAdapter;
-import com.base.ifocus.myapplication.Adapter.TodaysSpecialAdapter;
+import com.base.ifocus.myapplication.ClickListener.RecyclerItemClickListener;
 import com.base.ifocus.myapplication.Network.Helper;
 import com.base.ifocus.myapplication.Network.HttpConn;
 import com.base.ifocus.myapplication.R;
@@ -22,7 +23,7 @@ import com.base.ifocus.myapplication.R;
 /**
  * Created by iFocus on 10-09-2015.
  */
-public class MenuFragment extends Fragment implements Response.Listener, Response.ErrorListener {
+public class MenuFragment extends Fragment implements Response.Listener, Response.ErrorListener, RecyclerItemClickListener.OnItemClickListener {
     private HttpConn menuConn;
     private Response.Listener responseString;
     private Response.ErrorListener errorListener;
@@ -43,12 +44,13 @@ public class MenuFragment extends Fragment implements Response.Listener, Respons
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.menu_frag, null);
         categoryList = (RecyclerView) view.findViewById(R.id.categoryList);
+        categoryList.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), this));
         return view;
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.e("REsponse Error", error.toString());
+        Log.e("Response Error", error.toString());
     }
 
     @Override
@@ -60,10 +62,19 @@ public class MenuFragment extends Fragment implements Response.Listener, Respons
     private void createAdapter(Object response) {
         try {
             categoryList.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRecentAdapter = new CategoryListAdapter(Helper.parseArray(response));
+            mRecentAdapter = new CategoryListAdapter(Helper.parseMenuArray(response), getActivity());
             categoryList.setAdapter(mRecentAdapter);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(getActivity(), Details.class);
+        if (Helper.parsedArrayID.get(position) != null) {
+            intent.putExtra("menuName", Helper.parsedArrayID.get(position));
+        }
+        startActivity(intent);
     }
 }

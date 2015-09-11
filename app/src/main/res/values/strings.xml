@@ -20,8 +20,30 @@
     <string name="login">Login</string>
     <string name="welcome">Welcome Guest,</string>
     <string name="hello_world">Hello world!</string>
+    <string-array name="menuNames">
+        <item>North Indian</item>
+        <item>South Indian</item>
+        <item>Chinese</item>
+        <item>Snacks</item>
+        <item>Soups</item>
+        <item>Beverages</item>
+    </string-array>
 
-    <string name="base_url">http://192.168.1.100/hotel</string>
+    <string-array name="eventList">
+        <item>Party at MG Road</item>
+        <item>Party at Marathalli</item>
+        <item>Get Together</item>
+        <item>Prom Night</item>
+        <item>Party at Marathalli</item>
+    </string-array>
+    <string name="base_url">http://192.168.1.100/hotel/mobile</string>
     <string name="allCategory">/CategoryDB.php</string>
+    <string name="allEvents">/EventListDB.php</string>
+    <string name="listCategory">/CategoryListDB.php</string>
     <string name="allcat">allCat</string>
+    <string name="allcatlist">listCategory</string>
+    <string name="sDesc">Short description about the event</string>
+    <string name="title_activity_details">Details</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="address">The Leela Palace \nAddress: 23,\nKodihalli,\nOld Airport Road,HAL 3rd Stage,\nOpp. Manipal Hospital,\nBengaluru,\nKarnataka 560008</string>
 </resources>

@@ -18,11 +18,6 @@ public class BaseFragment extends Fragment {
 
     int imageSource;
 
-
-    public BaseFragment(int imageSource) {
-        this.imageSource = imageSource;
-
-    }
     public BaseFragment() {
 
     }
@@ -30,10 +25,12 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Bundle args = getArguments();
+        imageSource = args.getInt("image");
+/*
         if ((savedInstanceState != null) && savedInstanceState.containsKey(KEY_CONTENT)) {
             imageSource = savedInstanceState.getInt(KEY_CONTENT);
-        }
+        }*/
     }
 
     @Override
@@ -48,7 +45,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_CONTENT, imageSource);
     }
 }
 

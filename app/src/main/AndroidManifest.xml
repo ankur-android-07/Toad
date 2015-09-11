@@ -8,34 +8,65 @@
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
     -->
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <permission
+        android:name="com.base.ifocus.myapplication.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.base.ifocus.myapplication.permission.MAPS_RECEIVE"/>
+
+
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <!-- To retrieve the account name (email) as part of sign-in: -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name=".Application.ApplicationController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MyMaterialTheme"
-        android:name=".Application.ApplicationController">
+        android:theme="@style/MyMaterialTheme">
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCfezUo_Zfbd1cIa-3_KXAS5q1U1pVN2FI" />
+
         <activity
             android:name=".Activity.Base"
             android:label="@string/title_activity_base" />
         <activity
             android:name=".Activity.LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustPan">
+
+        </activity>
+        <activity
+            android:name=".Activity.RegisterAct"
+            android:label="@string/title_activity_register" />
+        <activity
+            android:name=".Activity.Details"
+            android:label="@string/title_activity_details"
+            android:parentActivityName=".Activity.Base">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.base.ifocus.myapplication.Activity.Base" />
+        </activity>
+        <activity
+            android:name=".Activity.Splash"
+            android:label="@string/title_activity_splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.RegisterAct"
-            android:label="@string/title_activity_register"></activity>
     </application>
 
 </manifest>

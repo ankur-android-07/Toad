@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.base.ifocus.myapplication.Adapter.BaseFragAdapter;
 import com.base.ifocus.myapplication.Adapter.TodaysSpecialAdapter;
+import com.base.ifocus.myapplication.Network.Helper;
 import com.base.ifocus.myapplication.R;
 
 /**
@@ -33,9 +34,6 @@ public class PlaceHolderFragment extends Fragment {
     private RecyclerView.Adapter mRecentAdapter;
     private BaseFragAdapter mAdapter;
     private ViewPager mPager;
-    private String[] data = {"Mini Meals", "Aloo Paratha", "Plain Dosa", "South Meals", "Masala Dosa", "Poha", "Set Dosa"};
-    private int[] icons = {R.drawable.nf1, R.drawable.nf2, R.drawable.sf5, R.drawable.sf3, R.drawable.sf1, R.drawable.nf5, R.drawable.sf4};
-
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -80,7 +78,7 @@ public class PlaceHolderFragment extends Fragment {
 
     private void createAdapter(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecentAdapter = new TodaysSpecialAdapter(data, icons);
+        mRecentAdapter = new TodaysSpecialAdapter(Helper.data, Helper.icons);
         recyclerView.setAdapter(mRecentAdapter);
     }
 

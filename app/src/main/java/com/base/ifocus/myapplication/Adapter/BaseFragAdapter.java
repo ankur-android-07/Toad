@@ -4,6 +4,7 @@ package com.base.ifocus.myapplication.Adapter;
  * Created by iFocus on 08-09-2015.
  */
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,7 +32,11 @@ public class BaseFragAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new BaseFragment(offerImages[position]);
+        Bundle args =new Bundle();
+        args.putInt("image", offerImages[position]);
+        Fragment fragment = new BaseFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
